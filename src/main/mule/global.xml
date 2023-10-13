@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:accounts-system-api="http://www.mulesoft.org/schema/mule/accounts-system-api"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:accounts-api="http://www.mulesoft.org/schema/mule/accounts-api"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/accounts-api http://www.mulesoft.org/schema/mule/accounts-api/current/mule-accounts-api.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/accounts-system-api http://www.mulesoft.org/schema/mule/accounts-system-api/current/mule-accounts-system-api.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="8e74df0c-76a1-4328-ae19-aa02501b04fd" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="e702f2f6-4bb4-406e-84d7-5e11e4cb8fa7" file="config.yaml" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="1dc88b91-2ac9-42c3-8a6e-b726fca9df2e" basePath="/${accounts.basepath}" >
+		<http:request-connection host="${accounts.host}" port="${accounts.port}" />
+	</http:request-config>
+	<accounts-system-api:config name="Accounts_API_Config" doc:name="Accounts System API Config" doc:id="67e95e71-7ec1-4173-ae52-fe6bf7f41e31" property_host="${accounts.host}" property_port="${accounts.port}" property_protocol="${accounts.protocol}" property_basePath="/${accounts.basepath}" property_responseTimeout="10000" />
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="391e3cc3-71df-4069-8697-802814c17731" >
+		<wsc:connection wsdlLocation="${transactions.wsdl}" service="${transactions.service}" port="${transactions.port}" address="${transactions.address}" />
+	</wsc:config>
+	<vm:config name="CSR_VM_Config" doc:name="VM Config" doc:id="98c74d02-c8ce-49f4-b5a7-197579db3111" >
+		<vm:queues >
+			<vm:queue queueName="${vm.queue}" />
+		</vm:queues>
+	</vm:config>
+
+
+
+</mule>

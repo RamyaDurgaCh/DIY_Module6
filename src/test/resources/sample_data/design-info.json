@@ -1,0 +1,11 @@
+{
+  "sampleData": {
+    "e52c0c4c-625f-419a-aa53-fb1a354739fb": {},
+    "0feb13d3-878b-4fe0-865d-cec6c455ea54": {
+      "payload": "sample_data/gettransactionsforcustomersresponse.xml"
+    },
+    "83194da1-6d8b-4d8d-b7c8-93fcfaab563d": {
+      "payload": "sample_data/list_json.json"
+    }
+  }
+}
